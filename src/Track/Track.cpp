@@ -19,6 +19,7 @@
 #include "Track/Track.h"
 // #include "Algorithms/PartBunchBase.h"
 #include "Algorithms/PartBunch.h" //FIXME
+#include "Algorithms/NBodyPartBunch.h"
 #ifdef ENABLE_AMR
     #include "Algorithms/AmrPartBunch.h"
 #endif

@@ -7,6 +7,7 @@ set (_SRCS
   Flagger.cpp
   IdealMapper.cpp
   LinearMapper.cpp
+  NBodyPartBunch.cpp
   MapIntegrator.cpp
   Mapper.cpp
   OrbitTracker.cpp
@@ -44,6 +45,7 @@ set (HDRS
     IdealMapper.h
     LinearMapper.h
     ListElem.h
+    NBodyPartBunch.h
     MapIntegrator.h
     Mapper.h
     OrbitTracker.h
