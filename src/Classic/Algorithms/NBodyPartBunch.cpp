@@ -21,8 +21,8 @@
 #include <gsl/gsl_histogram.h>
 #include <gsl/gsl_cdf.h>
 #include <gsl/gsl_randist.h>
-//#include <gsl/gsl_sf_erf.h>
-//#include <gsl/gsl_qrng.h>
+#include <gsl/gsl_sf_erf.h>
+#include <gsl/gsl_qrng.h>
 #include <boost/format.hpp>
 
 
