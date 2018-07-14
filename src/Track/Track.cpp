@@ -70,7 +70,7 @@ Track::Track(BeamSequence *u, const PartData &ref, const std::vector<double> & d
                 OpalData::getInstance()->setPartBunch(new AmrPartBunch(&ref));
             else
 #endif
-                OpalData::getInstance()->setPartBunch(new PartBunch(&ref));
+                OpalData::getInstance()->setPartBunch(new NBodyPartBunch(&ref));
         }
 
         slbunch = OpalData::getInstance()->getSLPartBunch();
@@ -81,7 +81,7 @@ Track::Track(BeamSequence *u, const PartData &ref, const std::vector<double> & d
                 OpalData::getInstance()->setPartBunch(new AmrPartBunch(&ref));
             else
 #endif
-                OpalData::getInstance()->setPartBunch(new PartBunch(&ref));
+                OpalData::getInstance()->setPartBunch(new NBodyPartBunch(&ref));
         }
 
     }
