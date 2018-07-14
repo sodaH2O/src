@@ -1,0 +1,101 @@
+add_subdirectory(EndFieldModel)
+
+set (_SRCS
+  AlignWrapper.cpp
+  AttributeSet.cpp
+  BeamBeam.cpp
+  BeamlineVisitor.cpp
+  Bend.cpp
+  BendBase.cpp
+  CCollimator.cpp
+  Component.cpp
+  Corrector.cpp
+  Cyclotron.cpp
+  CyclotronValley.cpp
+  Degrader.cpp
+  Diagnostic.cpp
+  Drift.cpp
+  ElementBase.cpp
+  ElementImage.cpp
+  FlexibleCollimator.cpp
+  Integrator.cpp
+  Lambertson.cpp
+  Marker.cpp
+  Monitor.cpp
+  Multipole.cpp
+  MultipoleT.cpp
+  Offset.cpp
+  ParallelPlate.cpp
+  Patch.cpp
+  Probe.cpp
+  RBend.cpp
+  RBend3D.cpp
+  RFCavity.cpp
+  RFQuadrupole.cpp
+  Ring.cpp
+  SBend.cpp
+  SBend3D.cpp
+  ScalingFFAGMagnet.cpp
+  Separator.cpp
+  Septum.cpp
+  Solenoid.cpp
+  Source.cpp
+  Stripper.cpp
+  TravelingWave.cpp
+  VariableRFCavity.cpp
+  )
+
+include_directories (
+  ${CMAKE_CURRENT_SOURCE_DIR}
+  )
+
+ADD_OPAL_SOURCES(${_SRCS})
+
+set (HDRS
+    AlignWrapper.h
+    AttributeSet.h
+    BeamBeam.h
+    BeamlineVisitor.h
+    Bend.h
+    BendBase.h
+    CCollimator.h
+    Component.h
+    Corrector.h
+    Cyclotron.h
+    CyclotronValley.h
+    Degrader.h
+    Diagnostic.h
+    Drift.h
+    ElementBase.h
+    ElementImage.h
+    FlexibleCollimator.h
+    Integrator.h
+    Lambertson.h
+    Marker.h
+    Monitor.h
+    Multipole.h
+    MultipoleT.h
+    Offset.h
+    ParallelPlate.h
+    Patch.h
+    Probe.h
+    RBend.h
+    RBend3D.h
+    RFCavity.h
+    RFQuadrupole.h
+    Ring.h
+    SBend3D.h
+    SBend.h
+    ScalingFFAGMagnet.h
+    SectorFieldMapComponent.h
+    Separator.h
+    Septum.h
+    Solenoid.h
+    Source.h
+    SpecificElementVisitor.h
+    Stripper.h
+    TravelingWave.h
+    VariableRFCavity.h
+)
+
+install (FILES ${HDRS} DESTINATION "${CMAKE_INSTALL_PREFIX}/include/AbsBeamline")
