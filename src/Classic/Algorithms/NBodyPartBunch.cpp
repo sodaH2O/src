@@ -34,8 +34,6 @@ NBodyPartBunch::NBodyPartBunch(const PartData *ref):
 {
     std::cout << "\n!!!DAVID> NBodyPartBunch(const PartData) called\n"
 	      << std::endl;
-    std::cout << ref->getE() << std::endl;
-    std::cout << P.size() << std::endl;
 }
 
 NBodyPartBunch::NBodyPartBunch(const std::vector<OpalParticle> &rhs,
@@ -67,9 +65,39 @@ void NBodyPartBunch::computeSelfFields(int binNumber) {
 }
 
 void NBodyPartBunch::computeSelfFields() {
+    //Q: C
+    //R: m?
+    //P: ?
+    //Ef: ?
+    //Bf: ?
+    
     IpplTimings::startTimer(selfFieldTimer_m);
     std::cout << "\n!!!DAVID>Yay, Reached: "
 	      << "NBodyPartBunch::computeSelfFields(){\n" << std::endl;
+    
+    /*for (size_t i = 0; i < Q.size(); i++) {
+	std::cout << "R[" << i << "]: " << R[i] << std::endl;
+	std::cout << "P[" << i << "]: " << P[i] << std::endl;
+    }*/
+
+    Vector_t r = 0;
+    double rNorm = 0;
+    
+    for(size_t i = 0; i < R.size(); i++) {
+        std::cout << i << ": " << R[i] << std::endl;
+	Ef[i] = 0;
+	for(size_t j = 0; j < R.size(); j++) {
+	    if (j == i){
+		continue;
+	    }
+	    r = R[i] - R[j];
+	    rNorm = euclidean_norm(r);
+	    r /= rNorm*rNorm*rNorm;
+	    r *= 8.9875517873681764e9;
+	    Ef[i] += r*Q[j];
+        }
+    }
+	
     IpplTimings::stopTimer(selfFieldTimer_m);
 }
 
