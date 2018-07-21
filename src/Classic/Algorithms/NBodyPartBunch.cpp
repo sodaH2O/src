@@ -66,37 +66,63 @@ void NBodyPartBunch::computeSelfFields(int binNumber) {
 
 void NBodyPartBunch::computeSelfFields() {
     //Q: C
-    //R: m?
-    //P: ?
-    //Ef: ?
+    //R: m
+    //P: [gambet]
+    //Ef: [V/m]
     //Bf: ?
     
     IpplTimings::startTimer(selfFieldTimer_m);
-    std::cout << "\n!!!DAVID>Yay, Reached: "
-	      << "NBodyPartBunch::computeSelfFields(){\n" << std::endl;
+    /*std::cout << "\nDAVID> Reached: "
+                << "NBodyPartBunch::computeSelfFields(){\n" << std::endl;*/
     
-    /*for (size_t i = 0; i < Q.size(); i++) {
+    /* dump phase space
+    for (size_t i = 0; i < Q.size(); i++) {
 	std::cout << "R[" << i << "]: " << R[i] << std::endl;
 	std::cout << "P[" << i << "]: " << P[i] << std::endl;
     }*/
 
-    Vector_t r = 0;
-    double rNorm = 0;
-    
+    //get gamma for frame where <pz'> = 0
+    Vector_t betaFrame = get_pmean()/get_gamma(); // betaFrame = <pz>/<gamma>
+    betaFrame(0) = 0;
+    betaFrame(1) = 0; // throw away x, y, component
+    double gammaFrame = 1 / sqrt(1-dot(betaFrame, betaFrame));
+    //std::cout << "betaFrame is " << betaFrame << std::endl;
+    //std::cout << "gammaFrame is " << gammaFrame << std::endl;
+
+    //static calc in lorentz frame
     for(size_t i = 0; i < R.size(); i++) {
-        std::cout << i << ": " << R[i] << std::endl;
 	Ef[i] = 0;
 	for(size_t j = 0; j < R.size(); j++) {
 	    if (j == i){
 		continue;
 	    }
-	    r = R[i] - R[j];
-	    rNorm = euclidean_norm(r);
-	    r /= rNorm*rNorm*rNorm;
-	    r *= 8.9875517873681764e9;
+	    Vector_t r = R[i] - R[j];
+	    r(2) *= gammaFrame;
+	    r /= pow(euclidean_norm(r), 3);
+	    r *= getCouplingConstant();
 	    Ef[i] += r*Q[j];
         }
     }
+
+    /*dump e field in lorentz frame
+    for(size_t i = 0; i < R.size(); i++) {
+	std::cout << "Ef0[" << i << "] is " << Ef[i] << std::endl;
+    }*/
+
+    //transform E, B to lab frame
+    for (size_t i = 0; i < R.size(); i++) {
+	// use original E0 to calc B
+	Bf[i] = cross(betaFrame, Ef[i]) * gammaFrame / Physics::c;
+	// transform E
+	Ef[i](0) *= gammaFrame;
+	Ef[i](1) *= gammaFrame;
+    }
+
+    /* dump E fields after transform
+    for(size_t i = 0; i < R.size(); i++) {
+	std::cout << "Ef[" << i << "] is " << Ef[i] << std::endl;
+	std::cout << "Bf[" << i << "] is " << Bf[i] << std::endl;
+    }*/
 	
     IpplTimings::stopTimer(selfFieldTimer_m);
 }
