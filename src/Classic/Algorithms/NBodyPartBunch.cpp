@@ -62,6 +62,7 @@ void NBodyPartBunch::computeSelfFields(int binNumber) {
     std::cout << "\n!!!DAVID> not yet implemented: "
 	      << "NBodyPartBunch::computeSelfFields(int binNumber) called\n"
               << std::endl;
+    computeSelfFields();
 }
 
 void NBodyPartBunch::computeSelfFields() {
