@@ -34,8 +34,6 @@ NBodyPartBunch::NBodyPartBunch(const PartData *ref):
 {
     std::cout << "\n!!!DAVID> NBodyPartBunch(const PartData) called\n"
 	      << std::endl;
-    std::cout << "turn on self field (1/0)? ";
-    std::cin >> selfFieldIsOn;
 }
 
 NBodyPartBunch::NBodyPartBunch(const std::vector<OpalParticle> &rhs,
@@ -74,13 +72,14 @@ void NBodyPartBunch::computeSelfFields() {
     //Ef: [V/m]
     //Bf: ?
 
-    if (!selfFieldIsOn) {
-	for(size_t i = 0; i < R.size(); i++) {
-	    Ef[i] = 0;
-	    Bf[i] = 0;
-	}
-	return;
+#define TURN_ON_SELF_FIELDS
+#ifndef TURN_ON_SELF_FIELDS
+    for(size_t i = 0; i < R.size(); i++) {
+	Ef[i] = 0;
+	Bf[i] = 0;
     }
+    return;
+#endif
     
     IpplTimings::startTimer(selfFieldTimer_m);
     /*std::cout << "\nDAVID> Reached: "

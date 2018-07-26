@@ -18,9 +18,6 @@ public:
 
     void computeSelfFields_cycl(double gamma);
     void computeSelfFields_cycl(int b);
-
-private:
-    bool selfFieldIsOn;
 };
 
 #endif
