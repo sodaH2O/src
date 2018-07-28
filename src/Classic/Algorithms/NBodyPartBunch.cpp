@@ -74,6 +74,7 @@ void NBodyPartBunch::computeSelfFields() {
 
 #define TURN_ON_SELF_FIELDS
 #ifndef TURN_ON_SELF_FIELDS
+    std::cout << "self field off\n";
     for(size_t i = 0; i < R.size(); i++) {
 	Ef[i] = 0;
 	Bf[i] = 0;
