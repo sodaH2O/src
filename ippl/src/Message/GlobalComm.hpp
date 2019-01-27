@@ -56,7 +56,6 @@ bool reduce(Communicate& comm, InputIterator s1, InputIterator s2,
             OutputIterator t1, const ReduceOp& op, bool *IncludeVal)
 {
 
-
     // Inform dbgmsg("reduce-vector", INFORM_ALL_NODES);
 
     // determine destination node and tags
@@ -182,7 +181,7 @@ bool reduce(Communicate& comm, InputIterator s1, InputIterator s2,
     // we're done
     if (useFlags != 0 && useFlags != IncludeVal)
         delete [] useFlags;
-
+    std::cout << "in reduce, GlobalComm, comm is " << comm << "\n";
     //INCIPPLSTAT(incReductions);
     return true;
 }

@@ -320,16 +320,12 @@ void ParallelTTracker::execute() {
     *gmsg << level1
           << "Executing ParallelTTracker, initial dt= " << Util::getTimeString(itsBunch_m->getdT()) << ";\n"
           << "max integration steps " << getMaxSteps(localTrackSteps_m) << ", next step= " << step << endl;
-
     setOptionalVariables();
-
     itsBunch_m->toLabTrafo_m = referenceToLabCSTrafo_m;
-
 #ifdef OPAL_DKS
     if (IpplInfo::DKSEnabled)
         allocateDeviceMemory();
 #endif
-
     // loggingFrequency_m = floor(1e-11/itsBunch_m->getdT() + 0.5);
     globalEOL_m = false;
     wakeStatus_m = false;
@@ -339,62 +335,100 @@ void ParallelTTracker::execute() {
         localTrackSteps_m.front() += step;
         dtCurrentTrack_m = dtAllTracks_m.front();
         changeDT();
-
+        cout << "Literally5!\n";
+        cout << "localTrackSteps_m.front() is " << localTrackSteps_m.front()
+             << "\n";
+        cout << "step is " << step << "\n";
         for (; step < localTrackSteps_m.front(); ++step) {
-
+            cout << "Inside FOR loop\n";
+            
             timeIntegration1(pusher);
+
+            cout << "1!!!!!\n";
 
             itsBunch_m->Ef = Vector_t(0.0);
             itsBunch_m->Bf = Vector_t(0.0);
 
+            cout << "2!!!!!\n";
+
             computeSpaceChargeFields(step);
 
+            cout << "3!!!!!\n";
+
             selectDT();
+
+            cout << "4!!!!!\n";
+            
             emitParticles(step);
+
+            cout << "5!!!!!\n";
+            
             selectDT();
+
+            cout << "6!!!!!\n";
 
             computeExternalFields(oth);
 
+            cout << "7!!!!!\n";
+            
             timeIntegration2(pusher);
 
             t += itsBunch_m->getdT();
             itsBunch_m->setT(t);
 
+            cout << "8!!!!!\n";
+
             if (t > 0.0) {
                 updateRefToLabCSTrafo(pusher);
             }
 
+            cout << "9!!!!!\n";
+            
             if (deletedParticles_m) {
                 evenlyDistributeParticles();
                 deletedParticles_m = false;
             }
 
+            cout << "10!!!!!\n";
+            
             itsBunch_m->toLabTrafo_m = referenceToLabCSTrafo_m;
             itsBunch_m->RefPartR_m = referenceToLabCSTrafo_m.transformTo(RefPartR_m);
             itsBunch_m->RefPartP_m = referenceToLabCSTrafo_m.rotateTo(RefPartP_m);
             itsBunch_m->set_sPos(pathLength_m);
 
+            cout << "11!!!!!\n";
+            cout << "hasEndOfLineReached(): " << hasEndOfLineReached() << "\n";
             if (hasEndOfLineReached()) break;
 
+            cout << "12!!!!!\n";
+            
             bool const psDump = ((itsBunch_m->getGlobalTrackStep() % Options::psDumpFreq) + 1 == Options::psDumpFreq);
             bool const statDump = ((itsBunch_m->getGlobalTrackStep() % Options::statDumpFreq) + 1 == Options::statDumpFreq);
             dumpStats(step, psDump, statDump);
 
+            cout << "13!!!!!\n";
+            
             itsBunch_m->incTrackSteps();
 
+            cout << "14!!!!!\n";
+            
             double driftPerTimeStep = euclidean_norm(itsBunch_m->getdT() * Physics::c * RefPartP_m / Util::getGamma(RefPartP_m));
+
+            cout << "15!!!!!\n";
+            
             if (std::abs(zStop_m.front() - pathLength_m) < 0.5 * driftPerTimeStep)
                 localTrackSteps_m.front() = step;
         }
-
+        cout << "Literally6!\n";
         if (globalEOL_m)
             break;
-
+        cout << "Literally7!\n";
         dtAllTracks_m.pop();
         localTrackSteps_m.pop();
         zStop_m.pop();
+        cout << "Literally8!\n";
     }
-
+    cout << "Literally9!\n";
     itsBunch_m->toLabTrafo_m = referenceToLabCSTrafo_m;
     itsBunch_m->RefPartR_m = referenceToLabCSTrafo_m.transformTo(RefPartR_m);
     itsBunch_m->RefPartP_m = referenceToLabCSTrafo_m.rotateTo(RefPartP_m);
@@ -991,7 +1025,9 @@ void ParallelTTracker::setOptionalVariables() {
 
 
 bool ParallelTTracker::hasEndOfLineReached() {
+    cout << "hasEndOfLIneReached() gets called\n";
     reduce(&globalEOL_m, &globalEOL_m + 1, &globalEOL_m, OpBitwiseAndAssign());
+    cout << "globalEOL_m is " << globalEOL_m << "\n";
     return globalEOL_m;
 }
 
