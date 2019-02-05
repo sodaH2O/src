@@ -165,7 +165,7 @@ void OrbitThreader::integrate(const IndexMap::value_t &activeSet, size_t maxStep
         }
 
         if (step % loggingFrequency_m == 0 && Ippl::myNode() == 0) {
-            logger_m << std::setw(18) << std::setprecision(8) << pathLength_m + std::copysign(euclidean_norm(r_m - oldR), dt_m)
+	    std::cout << std::setw(18) << std::setprecision(8) << pathLength_m + std::copysign(euclidean_norm(r_m - oldR), dt_m)
                      << std::setw(18) << std::setprecision(8) << r_m(0)
                      << std::setw(18) << std::setprecision(8) << r_m(1)
                      << std::setw(18) << std::setprecision(8) << r_m(2)
