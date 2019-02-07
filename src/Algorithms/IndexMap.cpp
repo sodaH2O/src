@@ -55,6 +55,9 @@ IndexMap::value_t IndexMap::query(key_t::first_type s, key_t::second_type ds) {
     map_t::reverse_iterator rit = mapRange2Element_m.rbegin();
     std::cout << "(rit != mapRange2Element_m.rend()) is :"
 	      << (rit != mapRange2Element_m.rend()) << "\n";
+    std::cout << "lowerLimit is :" << lowerLimit << "\n"
+	      << "(*rit).first.second is :"
+	      << (*rit).first.second << "\n";
     std::cout << "(lowerLimit > (*rit).first.second) is :"
 	      << (lowerLimit > (*rit).first.second) << "\n";
     if (rit != mapRange2Element_m.rend() && lowerLimit > (*rit).first.second) {

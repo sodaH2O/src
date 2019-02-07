@@ -418,6 +418,15 @@ void ParallelTTracker::execute() {
             
             if (std::abs(zStop_m.front() - pathLength_m) < 0.5 * driftPerTimeStep)
                 localTrackSteps_m.front() = step;
+
+            //dump phase space
+            std::cout << "End of step: " << step << "\n";
+            for (size_t i = 0; i < itsBunch_m->Q.size(); i++){
+                std::cout << "R[" << i << "]: "
+                          << itsBunch_m->R[i] << "\n";
+                std::cout << "P[" << i << "]: "
+                          << itsBunch_m->P[i] << "\n";
+            }
         }
         cout << "Literally6!\n";
         if (globalEOL_m)

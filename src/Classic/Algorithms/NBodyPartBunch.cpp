@@ -129,11 +129,11 @@ void NBodyPartBunch::computeSelfFields() {
 	Ef[i](1) *= gammaFrame;
     }
 
-    /* dump E fields after transform
+    // dump E fields after transform
     for(size_t i = 0; i < R.size(); i++) {
 	std::cout << "Ef[" << i << "] is " << Ef[i] << std::endl;
 	std::cout << "Bf[" << i << "] is " << Bf[i] << std::endl;
-    }*/
+    }
 	
     IpplTimings::stopTimer(selfFieldTimer_m);
 }
