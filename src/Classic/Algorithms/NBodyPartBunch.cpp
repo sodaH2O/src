@@ -72,6 +72,13 @@ void NBodyPartBunch::computeSelfFields() {
     //Ef: [V/m]
     //Bf: ?
 
+    // dump phase space
+    std::cout << "RIGHT INSIDE SELFFIELD CALC!!\n";
+    for (size_t i = 0; i < Q.size(); i++) {
+	std::cout << "R[" << i << "]: " << R[i] << std::endl;
+    }
+    std::cout << "\n";
+    
 #define TURN_ON_SELF_FIELDS
 #ifndef TURN_ON_SELF_FIELDS
     std::cout << "self field off\n";
@@ -85,12 +92,6 @@ void NBodyPartBunch::computeSelfFields() {
     IpplTimings::startTimer(selfFieldTimer_m);
     /*std::cout << "\nDAVID> Reached: "
                 << "NBodyPartBunch::computeSelfFields(){\n" << std::endl;*/
-    
-    // dump phase space
-    for (size_t i = 0; i < Q.size(); i++) {
-	std::cout << "R[" << i << "]: " << R[i] << std::endl;
-	std::cout << "P[" << i << "]: " << P[i] << std::endl;
-    }
 
     //get gamma for frame where <pz'> = 0
     Vector_t betaFrame = get_pmean()/get_gamma(); // betaFrame = <pz>/<gamma>

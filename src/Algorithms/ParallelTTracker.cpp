@@ -347,6 +347,12 @@ void ParallelTTracker::execute() {
             itsBunch_m->Ef = Vector_t(0.0);
             itsBunch_m->Bf = Vector_t(0.0);
 
+            std::cout << "RIGHT BEFORE SPACECHARGE CALC\n";
+            for (size_t i = 0; i < itsBunch_m->R.size(); i++){
+                std::cout << "R[" << i << "]"
+                          << itsBunch_m->R[i] << "\n"; 
+            }
+            
             computeSpaceChargeFields(step);
 
             selectDT();
@@ -376,6 +382,11 @@ void ParallelTTracker::execute() {
 
             if (hasEndOfLineReached()) break;
 
+            /*for (size_t i = 0; i < itsBunch_m->R.size(); i++){
+                std::cout << "R[" << i << "]"
+                          << itsBunch_m->R[i] << "\n"; 
+                          }*/
+            
             bool const psDump = ((itsBunch_m->getGlobalTrackStep() % Options::psDumpFreq) + 1 == Options::psDumpFreq);
             bool const statDump = ((itsBunch_m->getGlobalTrackStep() % Options::statDumpFreq) + 1 == Options::statDumpFreq);
             dumpStats(step, psDump, statDump);
@@ -554,10 +565,11 @@ void ParallelTTracker::computeSpaceChargeFields(unsigned long long step) {
     CoordinateSystemTrafo referenceToBeamCSTrafo = beamToReferenceCSTrafo.inverted();
 
     const unsigned int localNum1 = itsBunch_m->getLocalNum();
+    
     for (unsigned int i = 0; i < localNum1; ++ i) {
         itsBunch_m->R[i] = referenceToBeamCSTrafo.transformTo(itsBunch_m->R[i]);
     }
-
+    
     itsBunch_m->boundp();
 
     if (step % repartFreq_m + 1 == repartFreq_m) {
