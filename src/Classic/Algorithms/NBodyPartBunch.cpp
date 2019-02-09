@@ -87,10 +87,10 @@ void NBodyPartBunch::computeSelfFields() {
                 << "NBodyPartBunch::computeSelfFields(){\n" << std::endl;*/
     
     // dump phase space
-    for (size_t i = 0; i < Q.size(); i++) {
+    /*for (size_t i = 0; i < Q.size(); i++) {
 	std::cout << "R[" << i << "]: " << R[i] << std::endl;
 	std::cout << "P[" << i << "]: " << P[i] << std::endl;
-    }
+    }*/
 
     //get gamma for frame where <pz'> = 0
     Vector_t betaFrame = get_pmean()/get_gamma(); // betaFrame = <pz>/<gamma>
@@ -137,7 +137,7 @@ void NBodyPartBunch::computeSelfFields() {
     double eEnergy = 510998.95; // eV
     double lightSpd = 299792458; // m/s
     double qElectron = -1; // e
-    double charTime = 2*pow(10,-12); // sec, of damping to 1/e
+    double charTime = 10*pow(10,-12); // sec, of damping to 1/e
     for(size_t i = 0; i < R.size(); i++) {
 	Ef[i] -= eEnergy / (qElectron * lightSpd * charTime) * P[i];
     }

@@ -556,6 +556,8 @@ void ParallelTTracker::computeSpaceChargeFields(unsigned long long step) {
     const unsigned int localNum1 = itsBunch_m->getLocalNum();
     for (unsigned int i = 0; i < localNum1; ++ i) {
         itsBunch_m->R[i] = referenceToBeamCSTrafo.transformTo(itsBunch_m->R[i]);
+        //I added the following
+        itsBunch_m->P[i] = referenceToBeamCSTrafo.rotateTo(itsBunch_m->P[i]);
     }
 
     itsBunch_m->boundp();
