@@ -75,11 +75,6 @@ void NBodyPartBunch::computeSelfFields() {
 //#define TURN_ON_SELF_FIELDS
 #ifndef TURN_ON_SELF_FIELDS
     std::cout << "self field off\n";
-    for(size_t i = 0; i < R.size(); i++) {
-	Ef[i] = 0;
-	Bf[i] = 0;
-    }
-    return;
 #endif
     
     IpplTimings::startTimer(selfFieldTimer_m);
@@ -129,7 +124,7 @@ void NBodyPartBunch::computeSelfFields() {
 	Ef[i](1) *= gammaFrame;
     }
 
-//#define TURN_ON_DAMPING
+#define TURN_ON_DAMPING
 #ifdef TURN_ON_DAMPING
     std::cout << "calculating damping e-field\n";
     // this only applys to electrons, as of right now
