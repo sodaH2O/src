@@ -75,8 +75,7 @@ void NBodyPartBunch::computeSelfFields() {
 //#define TURN_ON_SELF_FIELDS
 #ifndef TURN_ON_SELF_FIELDS
     std::cout << "self field off\n";
-#endif
-    
+#else
     IpplTimings::startTimer(selfFieldTimer_m);
     /*std::cout << "\nDAVID> Reached: "
                 << "NBodyPartBunch::computeSelfFields(){\n" << std::endl;*/
@@ -123,6 +122,7 @@ void NBodyPartBunch::computeSelfFields() {
 	Ef[i](0) *= gammaFrame;
 	Ef[i](1) *= gammaFrame;
     }
+#endif
 
 #define TURN_ON_DAMPING
 #ifdef TURN_ON_DAMPING
