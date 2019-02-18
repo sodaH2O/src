@@ -132,7 +132,7 @@ void NBodyPartBunch::computeSelfFields() {
     double eEnergy = 510998.95; // eV
     double lightSpd = 299792458; // m/s
     double qElectron = -1; // e
-    double charTime = 10*pow(10,-12); // sec, of damping to 1/e
+    double charTime = 50*pow(10,-12); // sec, of damping to 1/e
     for(size_t i = 0; i < R.size(); i++) {
 	Ef[i] -= eEnergy / (qElectron * lightSpd * charTime) * P[i];
     }
