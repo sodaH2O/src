@@ -124,7 +124,7 @@ void NBodyPartBunch::computeSelfFields() {
     }
 #endif
 
-#define TURN_ON_DAMPING
+//#define TURN_ON_DAMPING
 #ifdef TURN_ON_DAMPING
     std::cout << "calculating damping e-field\n";
     // this only applys to electrons, as of right now
