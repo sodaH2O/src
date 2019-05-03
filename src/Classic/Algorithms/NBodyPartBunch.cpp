@@ -72,7 +72,7 @@ void NBodyPartBunch::computeSelfFields() {
     //Ef: [V/m]
     //Bf: ?
 
-#define TURN_ON_SELF_FIELDS
+//#define TURN_ON_SELF_FIELDS
 #ifndef TURN_ON_SELF_FIELDS
     std::cout << "self field off\n";
 #else
