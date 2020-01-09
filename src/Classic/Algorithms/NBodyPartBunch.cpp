@@ -76,6 +76,7 @@ void NBodyPartBunch::computeSelfFields() {
 #ifndef TURN_ON_SELF_FIELDS
     //std::cout << "self field off\n";
 #else
+    //std::cout << "self field on\n";
     IpplTimings::startTimer(selfFieldTimer_m);
     /*std::cout << "\nDAVID> Reached: "
                 << "NBodyPartBunch::computeSelfFields(){\n" << std::endl;*/
